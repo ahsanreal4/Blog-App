@@ -1,12 +1,11 @@
-import Dashboard from './pages/Dashboard';
-import ProtectedRoute from './components/ProtectedRoutes';
-import { PAGES } from './Routes/routes'; 
-import Home from './pages/Home';
-import AboutUS from './pages/AboutUS';
-import Login from './pages/Login';
-import SignUp from './pages/SignUp';
+import ProtectedRoute from '../components/ProtectedRoutes';
 import { createBrowserRouter } from 'react-router-dom';
 import { PAGES } from './routes';
+import Home from '../pages/Home';
+import AboutUS from '../pages/AboutUS';
+import Login from '../pages/Login';
+import SignUp from '../pages/SignUp';
+import Dashboard from '../pages/Dashboard';
 
 export const router = createBrowserRouter([
   {
@@ -29,7 +28,7 @@ export const router = createBrowserRouter([
     path:PAGES.Dashboard,
     element: (
       <ProtectedRoute>
-        <Dashboard />
+        <Dashboard/>
       </ProtectedRoute>
     )
   }
