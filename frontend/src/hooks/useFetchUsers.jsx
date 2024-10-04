@@ -17,7 +17,7 @@ const useFetchUsers = () => {
 
   useEffect(() => {
     fetchData();
-  }, [dispatch]);
+  }, []);
 
   return { fetchData }; 
 };
