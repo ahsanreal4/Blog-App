@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
-import useSignUp from '../hooks/useSignUp'; // Import the custom hook
+import useSignUp from '../hooks/useSignUp'; 
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -15,7 +15,6 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await signUp(formData);
-    // Reset form only if sign-up is successful
     if (success) {
       setFormData({
         name: '',
@@ -33,7 +32,6 @@ function SignUp() {
       [name]: value,
     }));
     
-    // Clear error or success messages on change
     setError(null);
     setSuccess('');
   };
