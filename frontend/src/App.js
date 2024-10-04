@@ -1,47 +1,46 @@
 import './App.css';
-import Home from "../src/pages/Home"
-import AboutUS from "../src/pages/AboutUS"
-import Login from "../src/pages/Login"
-import SignUp from "../src/pages/SignUp"
-import { createBrowserRouter,RouterProvider } from 'react-router-dom';
+import Home from "../src/pages/Home";
+import AboutUS from "../src/pages/AboutUS";
+import Login from "../src/pages/Login";
+import SignUp from "../src/pages/SignUp";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoutes';
+import { PAGES } from './Routes/routes'; 
+
 const router = createBrowserRouter([
   {
-    path:"/",
-    element:<Home/>
+    path: PAGES.Home, 
+    element: <Home />
   },
   {
-    path:"/about-us",
-    element:<AboutUS/>
-
+    path: PAGES.AboutUS,
+    element: <AboutUS />
   },
   {
-    path:"/login",
-    element:<Login/>
+    path: PAGES.Login, 
+    element: <Login />
   },
   {
-    path:"/sign-up",
-    element:<SignUp/>
+    path: PAGES.Register, 
+    element: <SignUp />
   },
   {
-    path:"/dashboard",
-
-    element:
-    <ProtectedRoute>
-    <Dashboard/>
-    </ProtectedRoute>
+    path: PAGES.Dashboard,
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    )
   }
-
-])
+]);
 
 function App() {
-
   return (
     <>
-    <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </>
-  )
+  );
 }
 
 export default App;

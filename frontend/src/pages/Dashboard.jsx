@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { addUsers } from '../redux/features/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Dashboard() {
   const dispatch = useDispatch();
+
+  const userData = useSelector((state) => state.users.userData);
 
   const fetchData = async () => {
     try {
@@ -14,7 +16,6 @@ function Dashboard() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response.data); 
       dispatch(addUsers(response.data));  
     } catch (error) {
       alert(error.response?.data?.message || 'An error occurred'); 
@@ -23,7 +24,8 @@ function Dashboard() {
 
   useEffect(() => {
     fetchData();
-  }, [dispatch]); 
+  }, [dispatch]);
+
 
   return (
     <>
@@ -33,6 +35,8 @@ function Dashboard() {
           Logout
         </button>
       </nav>
+      <div className="w-[300px] h-[100vh] bg-white shadow "></div>
+
     </>
   );
 }
