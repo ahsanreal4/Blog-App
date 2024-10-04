@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
-import axios from 'axios';
+import useSignUp from '../hooks/useSignUp'; // Import the custom hook
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -9,36 +9,20 @@ function SignUp() {
     email: '',
     password: '',
   });
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState('');
+
+  const { signUp, loading, error, success, setError, setSuccess } = useSignUp();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const response = await axios.post(
-        'https://blog-springboot-d0e09379772b.herokuapp.com/auth/signup',
-        {
-          name: formData.name,
-          username: formData.username,
-          email: formData.email,
-          password: formData.password,
-        }
-      );
-
-      if (response.status === 201) {
-        setSuccess('User created successfully');
-        setError(null);
-        setFormData({
-          name: '',
-          username: '',
-          email: '',
-          password: '',
-        });
-      }
-    } catch (e) {
-      setError(e.response?.data?.message || 'An error occurred');
-      setSuccess('');
+    await signUp(formData);
+    // Reset form only if sign-up is successful
+    if (success) {
+      setFormData({
+        name: '',
+        username: '',
+        email: '',
+        password: '',
+      });
     }
   };
 
@@ -49,6 +33,9 @@ function SignUp() {
       [name]: value,
     }));
     
+    // Clear error or success messages on change
+    setError(null);
+    setSuccess('');
   };
 
   return (
@@ -111,8 +98,9 @@ function SignUp() {
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          disabled={loading}
         >
-          Sign Up
+          {loading ? 'Signing Up...' : 'Sign Up'}
         </button>
 
         {success && <p className="text-green-500 text-sm mt-4">{success}</p>}
