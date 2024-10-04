@@ -1,54 +1,36 @@
-import React, { useState } from 'react';
-import axios from 'axios'; 
-import { useNavigate } from 'react-router-dom'; 
+
+import React from 'react';
 import Navbar from '../components/Navbar';
+import useLogin from '../hooks/useLogin';
 
 function Login() {
-  const [usernameOrEmail, setUsernameOrEmail] = useState('');
-  const [password, setPassword] = useState('');
-  
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post('https://blog-springboot-d0e09379772b.herokuapp.com/auth/login', {
-        usernameOrEmail, 
-        password
-      });
-
-      if (response.status === 200) {
-        localStorage.setItem('token', response.data.accessToken);
-        alert('Login successful!');
-        console.log(response.data)
-        navigate('/dashboard'); 
-      }
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        alert('Login failed. Please check your credentials.');
-      } else {
-        alert('Something went wrong. Please try again.');
-      }
-    }
-  };
+  const {
+    usernameOrEmail,
+    password,
+    setUsernameOrEmail,
+    setPassword,
+    handleLogin,
+    error,
+  } = useLogin(); 
 
   return (
     <>
       <Navbar />
       <form
         className="w-[400px] mx-auto mt-10 bg-white p-8 shadow-md rounded-lg flex flex-col"
-        onSubmit={handleSubmit}
+        onSubmit={handleLogin} 
       >
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
 
+        {error && <div className="mb-4 text-red-500">{error}</div>}
+
         <div className="mb-4">
-          <label htmlFor="usernameOrEmail" className="block mb-1 text-sm font-medium">Username or Email:</label> {/* Update label */}
+          <label htmlFor="usernameOrEmail" className="block mb-1 text-sm font-medium">Username or Email:</label>
           <input
-            type="text" // Change input type to text
+            type="text"
             id="usernameOrEmail"
-            value={usernameOrEmail} // Use the updated state
-            onChange={(e) => setUsernameOrEmail(e.target.value)} // Handle usernameOrEmail changes
+            value={usernameOrEmail}
+            onChange={(e) => setUsernameOrEmail(e.target.value)}
             required
             className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
           />
