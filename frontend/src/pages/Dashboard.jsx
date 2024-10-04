@@ -2,19 +2,16 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { addUsers } from '../redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { getAxiosInstance } from '../utils/axios';
 function Dashboard() {
   const dispatch = useDispatch();
 
-  const userData = useSelector((state) => state.users.userData);
 
   const fetchData = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get('https://blog-springboot-d0e09379772b.herokuapp.com/auth/profile', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        const axiosInstance = await getAxiosInstance(true)
+      const response = await axiosInstance.get('/auth/profile', {
+      
       });
       dispatch(addUsers(response.data));  
     } catch (error) {
