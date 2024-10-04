@@ -1,8 +1,6 @@
 import axios from 'axios';
+import { getAuthToken } from './auth';
 
-const getAuthToken = async () => {
-  return localStorage.getItem('token') || '';
-};
 
 const BaseUrl = 'https://blog-springboot-d0e09379772b.herokuapp.com';
 

@@ -3,5 +3,6 @@ export const PAGES = {
     AboutUS: "/about-us",
     Register: "/sign-up",
     Login: "/login",
-    Dashboard : "/dashboard"
+    Dashboard : "/dashboard",
+    Posts:"/posts"
 };

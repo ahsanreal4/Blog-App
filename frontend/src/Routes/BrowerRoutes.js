@@ -6,6 +6,7 @@ import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
 import Dashboard from '../pages/Dashboard';
 import ProtectedRoutes from './ProtectedRoutes';
+import Posts from '../pages/Posts';
 export const router = createBrowserRouter([
   {
     path: PAGES.Home, 
@@ -30,5 +31,9 @@ export const router = createBrowserRouter([
         <Dashboard/>
       </ProtectedRoutes>
     )
+  },
+  {
+    path:PAGES.Posts,
+    element:<Posts/>
   }
 ]);
