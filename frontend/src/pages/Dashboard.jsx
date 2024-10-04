@@ -1,8 +1,8 @@
-import axios from 'axios';
 import React, { useEffect } from 'react';
 import { addUsers } from '../redux/features/userSlice';
 import { useDispatch } from 'react-redux';
 import { getAxiosInstance } from '../utils/axios';
+import { FiPlus } from "react-icons/fi";
 function Dashboard() {
   const dispatch = useDispatch();
 
@@ -32,7 +32,13 @@ function Dashboard() {
           Logout
         </button>
       </nav>
-      <div className="w-[300px] h-[100vh] bg-white shadow "></div>
+      <div className="w-[300px] h-[100vh] bg-white shadow p-6">
+  <button className="flex items-center gap-2 justify-center text-orange-600 font-['Poppins',sans-serif] text-[18px] bg-white shadow-lg rounded-full p-2 px-4 hover:bg-gray-100 transition mx-auto">
+    <FiPlus />
+    NEW POST
+  </button>
+</div>
+
 
     </>
   );
