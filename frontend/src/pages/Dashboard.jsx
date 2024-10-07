@@ -1,9 +1,13 @@
 import React from 'react';
 import { FiPlus } from 'react-icons/fi';
 import useFetchUsers from '../hooks/useFetchUsers';
+import { useNavigate } from 'react-router-dom';
 function Dashboard() {
   useFetchUsers();
-
+  const navigate = useNavigate()
+  const handleNavigate = () =>{
+    navigate("/posts")
+  }
   return (
     <>
       <nav className="flex justify-between px-10">
@@ -13,7 +17,7 @@ function Dashboard() {
         </button>
       </nav>
       <div className="w-[300px] h-[100vh] bg-white shadow p-6">
-        <button className="flex items-center gap-2 justify-center text-orange-600 font-['Poppins',sans-serif] text-[18px] bg-white shadow-lg rounded-full p-2 px-4 hover:bg-gray-100 transition mx-auto">
+        <button className="flex items-center gap-2 justify-center text-orange-600 font-['Poppins',sans-serif] text-[18px] bg-white shadow-lg rounded-full p-2 px-4 hover:bg-gray-100 transition mx-auto" onClick={handleNavigate}>
           <FiPlus />
           NEW POST
         </button>
