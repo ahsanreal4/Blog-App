@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { getAxiosInstance } from '../utils/axios';
-import { getAuthToken } from '../utils/auth';
 
 function useCreateCategories() {
   const [name, setName] = useState('');
@@ -18,7 +17,6 @@ function useCreateCategories() {
     try {
       const axiosInstance = await getAxiosInstance(true);
       const response = await axiosInstance.post('/api/categories', formData);
-      getAuthToken()
       console.log('Category created successfully:', response.data);
     } catch (e) {
       setError(e?.response?.data?.error || 'An error occurred while creating the category.');

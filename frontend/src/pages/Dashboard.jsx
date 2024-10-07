@@ -2,11 +2,12 @@ import React from 'react';
 import { FiPlus } from 'react-icons/fi';
 import useFetchUsers from '../hooks/useFetchUsers';
 import { useNavigate } from 'react-router-dom';
+import { PAGES } from '../Routes/routes';
 function Dashboard() {
   useFetchUsers();
   const navigate = useNavigate()
   const handleNavigate = () =>{
-    navigate("/posts")
+    navigate(PAGES.Posts)
   }
   return (
     <>
