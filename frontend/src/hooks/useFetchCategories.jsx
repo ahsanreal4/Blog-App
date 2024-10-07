@@ -10,7 +10,7 @@ function useFetchCategories() {
 
   const fetchCategoriesData = async () => {
     try {
-      const axiosInstance = await getAxiosInstance();
+      const axiosInstance = await getAxiosInstance(true);
       const response = await axiosInstance.get('/api/categories');
       setCategoriesData(response.data); 
       getAuthToken()

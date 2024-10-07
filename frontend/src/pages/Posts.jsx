@@ -15,16 +15,14 @@ function Posts() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [categoryInputVisible, setCategoryInputVisible] = useState(false); 
 
-  // Toggle Category Dropdown
   const handleDropdownToggle = () => {
     setShowDropdown(!showDropdown);
   };
 
-  // Add new category
   const handleAddCategory = async (e) => {
     e.preventDefault();
     try {
-      await createCategory();  // Create the category
+      await createCategory();  
       setName('');  // Clear the input field
       setCategoryInputVisible(false);  // Hide input after adding
       fetchCategoriesData();  // Re-fetch categories after adding the new one
