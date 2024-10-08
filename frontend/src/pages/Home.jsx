@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
-
+import AllPosts from '../pages/AllPosts'
 function Home() {
   return (
     <>
@@ -9,10 +9,9 @@ function Home() {
       <div className="absolute top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
   <h3 className='text-[100px] text-[#444]'>BLOGS</h3>
 </div>
-
-
 </div>
 
+    <AllPosts/>
 
     </>
 )

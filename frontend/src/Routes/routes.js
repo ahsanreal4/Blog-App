@@ -4,5 +4,7 @@ export const PAGES = {
     Register: "/sign-up",
     Login: "/login",
     Dashboard : "/dashboard",
-    Posts:"/posts"
+    Posts:"/posts",
+    Profile:"/profile",
+    AllPost:"/all-posts"
 };

@@ -5,14 +5,17 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import 'react-quill/dist/quill.snow.css';
 import useCreatePosts from '../hooks/useCreatePosts';
 import CategoriesDropdown from '../components/CategoriesDropdown';
+import { PAGES } from '../Routes/routes';
+import { useNavigate } from 'react-router-dom';
+
 function Post() {
   const { title, setTitle, content, setContent, categoryId, setCategoryId, createPost, loading: postLoading } = useCreatePosts();
   const [showDropdown, setShowDropdown] = useState(false);
-
+  const navigate = useNavigate()
   const handleDropdownToggle = () => {
     setShowDropdown(!showDropdown);
   };
-
+  
   const handleCreatePost = (e) => {
     e.preventDefault();
     if (!categoryId) {
@@ -36,6 +39,16 @@ function Post() {
 
   return (
     <div className="p-20">
+<div class="flex justify-end p-4">
+  <button         onClick={() => navigate(PAGES.Dashboard)} 
+ className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
+    Back to Dashboard
+  </button>
+</div>
+
+
+
+
       <div className="w-auto mt-6 mx-auto flex justify-between items-center gap-4 relative">
         <input
           type="text"
