@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAxiosInstance } from '../utils/axios';
-import { setAuthToken } from '../utils/setAuth';
+import { setAuthToken } from '../utils/auth';
 const useLogin = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');

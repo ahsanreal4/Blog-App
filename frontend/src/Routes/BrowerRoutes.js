@@ -7,6 +7,8 @@ import SignUp from '../pages/SignUp';
 import Dashboard from '../pages/Dashboard';
 import ProtectedRoutes from './ProtectedRoutes';
 import Posts from '../pages/Posts';
+import Profile from '../pages/Profile';
+import AllPosts from '../pages/AllPosts';
 export const router = createBrowserRouter([
   {
     path: PAGES.Home, 
@@ -35,5 +37,15 @@ export const router = createBrowserRouter([
   {
     path:PAGES.Posts,
     element:<Posts/>
+  },
+  {
+    path:PAGES.Profile,
+    element:<Profile/>
+  },
+  {
+    path:PAGES.AllPost,
+    element:<AllPosts/>
   }
+
+
 ]);
