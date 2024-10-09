@@ -5,6 +5,7 @@ import useFetchCategories from '../hooks/useFetchCategories';
 import useDeleteCategory from '../hooks/useDeleteCategory';
 import AddCategoryForm from './AddCategoryForm';
 import { MdDelete } from "react-icons/md";
+
 const CategoriesDropdown = ({ setCategoryId, setShowDropdown }) => {
   const { categoriesData, fetchCategoriesData } = useFetchCategories();
   const [categoryInputVisible, setCategoryInputVisible] = useState(false);
@@ -25,8 +26,8 @@ const CategoriesDropdown = ({ setCategoryId, setShowDropdown }) => {
   };
 
   return (
-    <div className='absolute bg-slate-200 right-0 top-[60px] p-4 w-[300px] max-h-[200px] overflow-y-auto shadow-lg rounded'>
-      <ul>
+<div className="absolute bg-slate-200 right-0 top-[100px] md:top-[60px] p-4 w-full md:w-[300px] max-h-[200px] overflow-y-auto shadow-lg rounded">
+<ul>
         {categoriesData && categoriesData.length > 0 ? (
           categoriesData.map((category) => (
             <li key={category.id} className="flex justify-between items-center p-2 hover:bg-gray-200 cursor-pointer">
