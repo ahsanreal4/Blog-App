@@ -38,19 +38,21 @@ function Post() {
   ];
 
   return (
-    <div className="p-20">
-<div class="flex justify-end p-4">
-  <button         onClick={() => navigate(PAGES.Dashboard)} 
- className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
-    Back to Dashboard
-  </button>
-</div>
+    <div className="p-4 md:p-20">
+    <div className="flex justify-end mb-4">
+      <button
+        onClick={() => navigate(PAGES.Dashboard)} 
+        className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300"
+      >
+        Back to Dashboard
+      </button>
+    </div>
 
 
 
 
-      <div className="w-auto mt-6 mx-auto flex justify-between items-center gap-4 relative">
-        <input
+    <div className="w-auto mt-6 mx-auto flex flex-col md:flex-row justify-between items-center gap-4 relative">
+    <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -79,14 +81,15 @@ function Post() {
       </div>
 
       <div>
-        <ReactQuill
-          value={content}
-          onChange={setContent}
-          modules={modules}
-          formats={formats}
-          className="w-auto mt-[150px] p-20 h-[500px]"
-        />
-      </div>
+  <ReactQuill
+    value={content}
+    onChange={setContent}
+    modules={modules}
+    formats={formats}
+    className="w-auto mt-[60px] md:mt-[150px] p-4 md:p-10 lg:p-20 h-[300px] md:h-[400px] lg:h-[500px]"
+  />
+</div>
+
     </div>
   );
 }

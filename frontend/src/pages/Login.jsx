@@ -17,7 +17,7 @@ function Login() {
     <>
       <Navbar />
       <form
-        className="w-[400px] mx-auto mt-10 bg-white p-8 shadow-md rounded-lg flex flex-col"
+        className="w-auto sm:w-[400px] mx-auto mt-10 bg-white p-8 shadow-md rounded-lg flex flex-col"
         onSubmit={handleLogin} 
       >
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
