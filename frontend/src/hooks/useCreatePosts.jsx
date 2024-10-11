@@ -22,6 +22,7 @@ function useCreatePosts() {
       const axiosInstance = await getAxiosInstance(true);
       const response = await axiosInstance.post('/api/posts', formData);
       console.log('Post created successfully:', response.data);
+      setContent("")
     } catch (e) {
       setError(e?.response?.data?.error || 'An error occurred while creating the post.');
       console.error('Error creating post:', e);

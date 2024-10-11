@@ -1,21 +1,40 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { CiMenuBurger } from "react-icons/ci";
 import { PAGES } from '../Routes/routes';
+import { getAuthToken, removeAuthToken } from '../utils/auth'; 
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false); 
+  const navigate = useNavigate();
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   const Headings = [
     { name: "Home", links: PAGES.Home },
     { name: "About Us", links: PAGES.AboutUS },
     { name: "Register", links: PAGES.Register },
-    { name: "Login", links: PAGES.Login }
+    { name: isAuthenticated ? "Logout" : "Login", links: isAuthenticated ? PAGES.Home : PAGES.Login }, 
+    { name: "Dashboard", links: PAGES.Dashboard }
   ];
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const handleLogout = () => {
+    removeAuthToken(); 
+    setIsAuthenticated(false); 
+    navigate(PAGES.Home);
   };
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = await getAuthToken();
+      setIsAuthenticated(!!token); 
+    };
+
+    checkAuth();
+  }, []);
 
   return (
     <header className="pb-6 bg-white lg:pb-0">
@@ -40,6 +59,7 @@ const Navbar = () => {
               <Link
                 key={index}
                 to={item.links}
+                onClick={item.name === "Logout" ? handleLogout : null} 
                 className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600"
               >
                 {item.name}
@@ -56,6 +76,7 @@ const Navbar = () => {
                   <Link
                     key={index}
                     to={item.links}
+                    onClick={item.name === "Logout" ? handleLogout : null} 
                     className="inline-flex py-2 text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600"
                   >
                     {item.name}

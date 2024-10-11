@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 function Profile() {
-  // Access user data from Redux store
   const userData = useSelector((state) => state.users.userData);
 
   return (

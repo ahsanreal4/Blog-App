@@ -1,15 +1,20 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { getAxiosInstance } from '../utils/axios';
 import { setAuthToken } from '../utils/auth';
+
 const useLogin = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
   const [error, setError] = useState(null); 
+  const navigate = useNavigate();
+  const location = useLocation(); 
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    // Reset error on new login attempt
+    setError(null);
 
     try {
       const axiosInstance = await getAxiosInstance(); 
@@ -21,7 +26,10 @@ const useLogin = () => {
       const token = response.data.accessToken;
       setAuthToken(token); 
       alert('Login successful!');
-      navigate('/dashboard');
+      
+      // Redirect after login, defaulting to home page ('/') instead of '/login'
+      const redirectTo = location.state?.from?.pathname || '/';
+      navigate(redirectTo);
       
     } catch (error) {
       if (error.response && error.response.status === 401) {
