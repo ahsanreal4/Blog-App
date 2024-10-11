@@ -7,7 +7,7 @@ import { removeAuthToken, getAuthToken } from '../utils/auth';
 import DashboardButton from '../components/DashboardButton';
 import { PAGES } from '../Routes/routes';
 import Navbar from '../components/Navbar';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../components/Sidebar';
 
@@ -72,7 +72,6 @@ function Dashboard() {
         Dashboard Menu
       </button>
 
-      <ToastContainer position="top-right" autoClose={2000} />
     </>
   );
 }
