@@ -16,7 +16,6 @@ function useFetchPostById(id) {
         setLoading(true)
         setError(null) 
         try {
-            console.log(`Fetching post with ID: ${id}`) 
             const axiosInstance = await getAxiosInstance()
             const response = await axiosInstance.get(`/api/posts/${id}`) 
             setPostDataById(response.data)

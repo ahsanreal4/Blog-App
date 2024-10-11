@@ -2,7 +2,7 @@ import React from 'react';
 import { FiPlus } from 'react-icons/fi';
 import { CgProfile } from 'react-icons/cg';
 import { BsFillFilePostFill } from 'react-icons/bs';
-import { AiOutlineClose } from 'react-icons/ai';  // Importing close icon
+import { AiOutlineClose } from 'react-icons/ai'; 
 
 const Sidebar = ({ handleNavigate, handleLogout, toggleSidebar }) => {
   return (

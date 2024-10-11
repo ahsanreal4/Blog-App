@@ -1,7 +1,7 @@
 function PostItem({ post }) {
     return (
       <li className="bg-white p-6 rounded-lg shadow-lg">
-        <h2 className="text-xl font-semibold text-gray-800">{post.title}</h2>
+        <h2 className="text-xl font-semibold text-gray-800 uppercase">{post.title}</h2>
         <div className="text-gray-600 mt-2" dangerouslySetInnerHTML={{ __html: post.content }} />
   
         {post.comments && post.comments.length > 0 && (

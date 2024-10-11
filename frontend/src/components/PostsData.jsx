@@ -6,7 +6,7 @@ function PostsData({ postDataByCategories }) {
         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {postDataByCategories.map((post) => (
             <li key={post.id} className="bg-white p-6 rounded-lg shadow-lg">
-              <h2 className="text-xl font-semibold text-gray-800">{post.title}</h2>
+              <h2 className="text-xl font-semibold text-gray-800 uppercase">{post.title}</h2>
               <div
                 className="text-gray-600 mt-2"
                 dangerouslySetInnerHTML={{ __html: post.content }}
