@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiPlus } from 'react-icons/fi';
+import { FiPlus } from 'react-icons/fi';  
 import { CgProfile } from 'react-icons/cg';
 import { BsFillFilePostFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
@@ -9,10 +9,11 @@ import { PAGES } from '../Routes/routes';
 import Navbar from '../components/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Sidebar from '../components/Sidebar';
 
 function Dashboard() {
   const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);  
 
   const notify = () => toast.error("Please Login First then come here!");
 
@@ -39,17 +40,13 @@ function Dashboard() {
     navigate(PAGES.Login);
   };
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   return (
-    <>
-      <Navbar toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} menuItems={[
-        { name: 'New Post', icon: FiPlus, action: () => handleNavigate(PAGES.Posts) },
-        { name: 'Profile', icon: CgProfile, action: () => handleNavigate(PAGES.Profile) },
-        { name: 'Posts', icon: BsFillFilePostFill, action: () => handleNavigate(PAGES.AllPost) }
-      ]} />
+    <>  
+      <Navbar/>
       
       <div className="hidden sm:block w-[300px] h-[100vh] bg-white shadow p-6">
         <DashboardButton icon={FiPlus} text="NEW POST" onClick={() => handleNavigate(PAGES.Posts)} />
@@ -59,6 +56,21 @@ function Dashboard() {
           Logout
         </button>
       </div>
+
+      {isSidebarOpen && (
+        <Sidebar
+          handleNavigate={handleNavigate}
+          handleLogout={handleLogout}
+          toggleSidebar={toggleSidebar}  
+        />
+      )}
+
+      <button
+        className="fixed bottom-4 right-4 sm:hidden bg-blue-600 text-white p-3 rounded-full shadow-lg z-50"
+        onClick={toggleSidebar}
+      >
+        Dashboard Menu
+      </button>
 
       <ToastContainer position="top-right" autoClose={2000} />
     </>

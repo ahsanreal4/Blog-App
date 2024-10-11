@@ -58,14 +58,6 @@ function AboutUS() {
             </p>
           </div>
 
-          <div className="mt-12">
-            <h2 className="text-3xl font-semibold text-gray-800 mb-4">
-              Ready to Get Started?
-            </h2>
-            <button className="bg-blue-600 text-white py-3 px-8 rounded-lg shadow hover:bg-blue-700 transition">
-              Create Your Blog Now
-            </button>
-          </div>
         </div>
       </div>
     </>

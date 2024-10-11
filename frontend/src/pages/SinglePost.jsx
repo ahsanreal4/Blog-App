@@ -7,8 +7,7 @@ import { useState, useEffect } from 'react';
 import useCommentsPosts from '../hooks/useCommentsPosts';
 import { ToastContainer, toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
-import { PAGES } from '../Routes/routes';
-import { getAuthToken, removeAuthToken } from '../utils/auth';
+import { getAuthToken } from '../utils/auth';
 import Navbar from '../components/Navbar';
 
 function SinglePost() {
@@ -18,18 +17,16 @@ function SinglePost() {
   const [commentData, setCommentData] = useState({ name: '', email: '', body: '' });
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { createComment, loading: commentLoading, error: commentError } = useCommentsPosts();
-  const [comments, setComments] = useState([]);  // State to manage comments
-  const navigate = useNavigate();
+  const [comments, setComments] = useState([]);  
 
   useEffect(() => {
     const token = getAuthToken();
     setIsAuthenticated(!!token); 
 
-    // Initialize comments if postDataById contains comments
     if (postDataById?.comments) {
       setComments(postDataById.comments);
     }
-  }, [postDataById]);  // Re-run when postDataById changes
+  }, [postDataById]);  
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +38,6 @@ function SinglePost() {
         body: commentData.body,
       };
 
-      // Update the comments list immediately after successful submission
       setComments((prevComments) => [...prevComments, newComment]);
       
       setCommentData({ name: '', email: '', body: '' });
@@ -54,12 +50,6 @@ function SinglePost() {
 
   const handleChange = (e) => {
     setCommentData({ ...commentData, [e.target.name]: e.target.value });
-  };
-
-  const handleLogout = () => {
-    removeAuthToken();
-    navigate(PAGES.Home);
-    toast.info("You have been logged out."); 
   };
 
   const handleAddComment = () => {
@@ -84,7 +74,7 @@ function SinglePost() {
 
   return (
     <>
-      <Navbar  />
+      <Navbar isAuthenticated={isAuthenticated} />
       
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         {matchingCategory && (
@@ -106,7 +96,6 @@ function SinglePost() {
           dangerouslySetInnerHTML={{ __html: postDataById.content }}
         />
 
-        {/* Show Comments if they exist */}
         {comments.length > 0 && (
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-3xl font-semibold mb-6 text-gray-800">Comments</h2>
@@ -123,7 +112,6 @@ function SinglePost() {
           </div>
         )}
 
-        {/* Show Add Comment section regardless of existing comments */}
         <div className="bg-white rounded-lg shadow-md p-6 mt-6">
           <button
             className="bg-blue-500 p-3 flex items-center text-white gap-2"
