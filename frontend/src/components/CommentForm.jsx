@@ -1,8 +1,7 @@
-import { FaComment } from 'react-icons/fa';
-import { toast } from 'react-toastify'; 
-import { getAuthToken } from '../utils/auth'; 
-import { useNavigate } from 'react-router-dom';
-import { PAGES } from '../Routes/routes'; 
+import { toast } from "react-toastify";
+import { getAuthToken } from "../utils/auth";
+import { useNavigate } from "react-router-dom";
+import { PAGES } from "../Routes/routes";
 
 const CommentForm = ({
   commentData,
@@ -20,23 +19,25 @@ const CommentForm = ({
     if (!token) {
       toast.error("Please log in to submit a comment.", {
         position: "top-right",
-        autoClose: 3000, 
+        autoClose: 3000,
       });
 
       setTimeout(() => {
         navigate(PAGES.Login);
       }, 3000);
 
-      return; 
+      return;
     }
 
-    handleCommentSubmit(e); 
+    handleCommentSubmit(e);
   };
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mt-6">
       <form className="mt-6" onSubmit={handleSubmitWithLoginCheck}>
-        {commentError && <p className="text-red-500">Error: {commentError.message}</p>}
+        {commentError && (
+          <p className="text-red-500">Error: {commentError.message}</p>
+        )}
         <div className="mb-4">
           <input
             type="text"
@@ -74,7 +75,7 @@ const CommentForm = ({
           className="bg-green-500 text-white p-3 rounded"
           disabled={commentLoading}
         >
-          {commentLoading ? 'Submitting...' : 'Submit Comment'}
+          {commentLoading ? "Submitting..." : "Submit Comment"}
         </button>
       </form>
     </div>
