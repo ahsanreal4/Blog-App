@@ -3,47 +3,25 @@ import { useState, useEffect } from 'react';
 import LoadingSpinner from '../components/LoadingSpinner';
 import useFetchPostById from '../hooks/useFetchPostById';
 import useCommentsPosts from '../hooks/useCommentsPosts';
-import { toast } from 'react-toastify'; 
-import { getAuthToken } from '../utils/auth';
 import Navbar from '../components/Navbar';
-import { PAGES } from '../Routes/routes';
 import PostContent from '../components/PostContent';
 import CommentsList from '../components/CommentsList';
 import CommentForm from '../components/CommentForm';
 import { categories } from '../CategoriesImages/CategoriesImages';
+import { toast } from 'react-toastify'; 
 
 function SinglePost() {
   const { id } = useParams();
   const { error, loading, postDataById } = useFetchPostById(id);
-  const [comment, setComment] = useState(false);
   const [commentData, setCommentData] = useState({ name: '', email: '', body: '' });
   const { createComment, loading: commentLoading, error: commentError } = useCommentsPosts();
   const [comments, setComments] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const token = await getAuthToken();  
-        if (!token) {
-          toast.error("Please log in to view the post.", {
-            position: "top-right",
-            autoClose: 3000, 
-          });
-          setTimeout(() => {
-            navigate(PAGES.Login);
-          }, 3000); 
-        } else {
-          if (postDataById?.comments) {
-            setComments(postDataById.comments);
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching auth token:", error);
-      }
-    };
-    checkAuth();
-  }, [postDataById, navigate]);  
+    if (postDataById?.comments) {
+      setComments(postDataById.comments);
+    }
+  }, [postDataById]);
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
@@ -56,22 +34,12 @@ function SinglePost() {
       };
       setComments((prevComments) => [...prevComments, newComment]);
       setCommentData({ name: '', email: '', body: '' });
-      setComment(false);
-      toast.success("Comment added successfully!"); 
-    } 
+      toast.success("Comment added successfully!");
+    }
   };
 
   const handleChange = (e) => {
     setCommentData({ ...commentData, [e.target.name]: e.target.value });
-  };
-
-  const handleAddComment = () => {
-    const token = getAuthToken();
-    if (!token) {
-      toast.error("Please log in first to add a comment.");
-      return;
-    }
-    setComment(true); 
   };
 
   if (loading) return <LoadingSpinner />;
@@ -108,8 +76,6 @@ function SinglePost() {
           commentError={commentError}
           handleChange={handleChange}
           handleCommentSubmit={handleCommentSubmit}
-          handleAddComment={handleAddComment}
-          comment={comment}
         />
       </div>
     </>
