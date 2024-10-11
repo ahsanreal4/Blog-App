@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { addCategories } from '../redux/features/categoriesSlice';
+import React, { useState } from 'react';
 import useFetchCategories from '../hooks/useFetchCategories';
 import useDeleteCategory from '../hooks/useDeleteCategory';
 import AddCategoryForm from './AddCategoryForm';
@@ -9,15 +7,9 @@ import { MdDelete } from "react-icons/md";
 const CategoriesDropdown = ({ setCategoryId, setShowDropdown }) => {
   const { categoriesData, fetchCategoriesData } = useFetchCategories();
   const [categoryInputVisible, setCategoryInputVisible] = useState(false);
-  const dispatch = useDispatch();
   const { deleteCategory, loading: deleteLoading } = useDeleteCategory();
 
-  useEffect(() => {
-    if (categoriesData && categoriesData.length > 0) {
-      dispatch(addCategories(categoriesData));
-    }
-  }, [categoriesData, dispatch]);
-
+  
   const handleDelete = async (categoryId) => {
     const success = await deleteCategory(categoryId);
     if (success) {

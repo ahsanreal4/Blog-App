@@ -1,21 +1,33 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { CiMenuBurger } from "react-icons/ci";
 import { PAGES } from '../Routes/routes';
+import { getAuthToken, removeAuthToken } from '../utils/auth'; 
 
-const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const Navbar = ({ toggleMenu, isMenuOpen, menuItems }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = getAuthToken();
+    setIsAuthenticated(!!token);  
+  }, []);
+
+  const handleLogout = () => {
+    removeAuthToken();  
+    setIsAuthenticated(false);  
+    navigate(PAGES.Home); 
+  };
 
   const Headings = [
     { name: "Home", links: PAGES.Home },
     { name: "About Us", links: PAGES.AboutUS },
     { name: "Register", links: PAGES.Register },
-    { name: "Login", links: PAGES.Login }
+    { name: "Dashboard", links: PAGES.Dashboard },
+    isAuthenticated
+      ? { name: "Logout", action: handleLogout } 
+      : { name: "Login", links: PAGES.Login }  
   ];
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
 
   return (
     <header className="pb-6 bg-white lg:pb-0">
@@ -39,7 +51,8 @@ const Navbar = () => {
             {Headings.map((item, index) => (
               <Link
                 key={index}
-                to={item.links}
+                to={item.links ? item.links : "#"}  // If link exists, use it; else, show #
+                onClick={item.action ? item.action : null}  // If there's an action (like logout), handle it
                 className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600"
               >
                 {item.name}
@@ -55,11 +68,23 @@ const Navbar = () => {
                 {Headings.map((item, index) => (
                   <Link
                     key={index}
-                    to={item.links}
+                    to={item.links ? item.links : "#"}
+                    onClick={item.action ? item.action : null}
                     className="inline-flex py-2 text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600"
                   >
                     {item.name}
                   </Link>
+                ))}
+
+                {menuItems && menuItems.map((menuItem, index) => (
+                  <button
+                    key={index}
+                    className="flex items-center space-x-2 py-2 text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600"
+                    onClick={menuItem.action}
+                  >
+                    <menuItem.icon size={20} />
+                    <span>{menuItem.name}</span>
+                  </button>
                 ))}
               </div>
             </div>

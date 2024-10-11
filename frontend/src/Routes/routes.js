@@ -6,5 +6,7 @@ export const PAGES = {
     Dashboard : "/dashboard",
     Posts:"/posts",
     Profile:"/profile",
-    AllPost:"/all-posts"
+    AllPost:"/all-posts",
+    PostsByCategories:"/posts/:id/:name",
+    SinglePost:"/posts/:id"
 };
