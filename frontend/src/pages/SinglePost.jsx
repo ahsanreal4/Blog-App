@@ -49,12 +49,16 @@ function SinglePost() {
   const matchingCategory = Object.values(categories).find(
     (category) => category.name.toLowerCase().trim() === postDataById.title.toLowerCase().trim()
   );
+  console.log('Post Title:', postDataById.title);
+console.log('Category Names:', Object.values(categories).map((cat) => cat.name));
+
 
   return (
     <>
       <Navbar />
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         {matchingCategory && (
+        
           <div className="mb-8 rounded-lg overflow-hidden shadow-lg">
             <img
               src={matchingCategory.imageUrl}
@@ -64,8 +68,10 @@ function SinglePost() {
           </div>
         )}
 
-        <h1 className="text-5xl font-bold mb-6 text-gray-800 leading-tight uppercase">
-          {postDataById.title}
+        <h1 className="text-5xl font-bold mb-6 text-gray-800 leading-tight uppercase "  
+
+        >
+          {postDataById.title.toUpperCase()}
         </h1>
 
         <PostContent content={postDataById.content} />
