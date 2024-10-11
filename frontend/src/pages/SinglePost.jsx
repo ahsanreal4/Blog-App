@@ -64,7 +64,7 @@ function SinglePost() {
           </div>
         )}
 
-        <h1 className="text-5xl font-bold mb-6 text-gray-800 leading-tight">
+        <h1 className="text-5xl font-bold mb-6 text-gray-800 leading-tight uppercase">
           {postDataById.title}
         </h1>
 

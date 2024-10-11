@@ -70,9 +70,9 @@ function AllPosts() {
                   />
                 )}
                 <div className="p-6">
-                  <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
+                  <h2 className="text-xl font-semibold mb-2 uppercase">{post.title}</h2>
                   {category && (
-                    <p className="text-gray-500 mb-4">
+                    <p className="text-gray-500 mb-4 uppercase">
                       <strong>Category:</strong> {category.name}
                     </p>
                   )}
@@ -89,32 +89,34 @@ function AllPosts() {
         )}
       </div>
 
-      {/* Pagination controls */}
-      <div className="flex justify-center mt-8">
-        <button
-          onClick={handlePreviousPage}
-          disabled={page === 0}
-          className={`px-4 py-2 mr-2 ${page === 0 ? 'bg-gray-300' : 'bg-blue-500 text-white'} rounded`}
-        >
-          Previous
-        </button>
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index}
-            onClick={() => handlePageSelect(index)}
-            className={`px-4 py-2 mx-1 ${index === page ? 'bg-blue-500 text-white' : 'bg-gray-300'} rounded`}
-          >
-            {index + 1}
-          </button>
-        ))}
-        <button
-          onClick={handleNextPage}
-          disabled={page === totalPages - 1}
-          className={`px-4 py-2 ml-2 ${page === totalPages - 1 ? 'bg-gray-300' : 'bg-blue-500 text-white'} rounded`}
-        >
-          Next
-        </button>
-      </div>
+<div className="flex justify-center mt-8">
+  <button
+    onClick={handlePreviousPage}
+    disabled={page === 0}  // Disable if on the first page
+    className={`px-4 py-2 mr-2 ${page === 0 ? 'bg-gray-300' : 'bg-blue-500 text-white'} rounded`}
+  >
+    Previous
+  </button>
+
+  {Array.from({ length: totalPages }, (_, index) => (
+    <button
+      key={index}
+      onClick={() => handlePageSelect(index)}
+      className={`px-4 py-2 mx-1 ${index === page ? 'bg-blue-500 text-white' : 'bg-gray-300'} rounded`}
+    >
+      {index + 1}
+    </button>
+  ))}
+
+  <button
+    onClick={handleNextPage}
+    disabled={page === totalPages - 1}  
+    className={`px-4 py-2 ml-2 ${page === totalPages - 1 ? 'bg-gray-300' : 'bg-blue-500 text-white'} rounded`}
+  >
+    Next
+  </button>
+</div>
+
     </div>
   );
 }

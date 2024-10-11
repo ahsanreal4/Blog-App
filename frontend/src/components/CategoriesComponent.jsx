@@ -34,10 +34,10 @@ function CategoriesComponent() {
         {categoriesData.map((category) => (
           <li
             key={category.id}
-            className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+            className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer uppercase"
             onClick={() => handleCategoryClick(category.id, category.name)} 
           >
-            <h2 className="text-xl font-semibold text-gray-800">{category.name}</h2>
+            <h2 className="text-xl font-semibold text-gray-800 uppercase">{category.name}</h2>
           </li>
         ))}
       </ul>

@@ -12,6 +12,9 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  const handlenavigate = () =>{
+    navigate(PAGES.Home)
+  }
 
   const Headings = [
     { name: "Home", links: PAGES.Home },
@@ -41,7 +44,7 @@ const Navbar = () => {
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <nav className="flex items-center justify-between h-16 lg:h-20">
           <div className="flex-shrink-0">
-            <h1 className="text-[25px] sm:text-[40px] text-blue-500 font-['Silkscreen',sans-serif]">
+            <h1 className="text-[25px] sm:text-[40px] text-blue-500 font-['Silkscreen',sans-serif] hover:cursor-pointer" onClick={handlenavigate}>
               ContentNest
             </h1>
           </div>
