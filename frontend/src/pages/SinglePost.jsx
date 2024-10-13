@@ -1,20 +1,30 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import LoadingSpinner from '../components/LoadingSpinner';
-import useFetchPostById from '../hooks/useFetchPostById';
-import useCommentsPosts from '../hooks/useCommentsPosts';
-import Navbar from '../components/Navbar';
-import PostContent from '../components/PostContent';
-import CommentsList from '../components/CommentsList';
-import CommentForm from '../components/CommentForm';
-import { categories } from '../CategoriesImages/CategoriesImages';
-import { toast } from 'react-toastify'; 
+import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import LoadingSpinner from "../components/LoadingSpinner";
+import useFetchPostById from "../hooks/useFetchPostById";
+import useCommentsPosts from "../hooks/useCommentsPosts";
+import Navbar from "../components/Navbar";
+import PostContent from "../components/PostContent";
+import CommentsList from "../components/CommentsList";
+import CommentForm from "../components/CommentForm";
+import { categories } from "../CategoriesImages/CategoriesImages";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 function SinglePost() {
   const { id } = useParams();
   const { error, loading, postDataById } = useFetchPostById(id);
-  const [commentData, setCommentData] = useState({ name: '', email: '', body: '' });
-  const { createComment, loading: commentLoading, error: commentError } = useCommentsPosts();
+  const [commentData, setCommentData] = useState({
+    name: "",
+    email: "",
+    body: "",
+  });
+  const {
+    createComment,
+    loading: commentLoading,
+    error: commentError,
+  } = useCommentsPosts();
+  const userData = useSelector((state) => state.users.userData);
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
@@ -25,15 +35,17 @@ function SinglePost() {
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
-    const success = await createComment(id, commentData);
+
+    const payload = {
+      body: commentData.body,
+      email: userData.email,
+      name: userData.name,
+    };
+
+    const success = await createComment(id, payload);
     if (success) {
-      const newComment = {
-        name: commentData.name,
-        email: commentData.email,
-        body: commentData.body,
-      };
-      setComments((prevComments) => [...prevComments, newComment]);
-      setCommentData({ name: '', email: '', body: '' });
+      setComments((prevComments) => [...prevComments, payload]);
+      setCommentData({ name: "", email: "", body: "" });
       toast.success("Comment added successfully!");
     }
   };
@@ -43,22 +55,27 @@ function SinglePost() {
   };
 
   if (loading) return <LoadingSpinner />;
-  if (error) return <p className="text-red-500 text-center my-8">Error: {error}</p>;
-  if (!postDataById) return <p className="text-center text-gray-500 my-8">No post found.</p>;
+  if (error)
+    return <p className="text-red-500 text-center my-8">Error: {error}</p>;
+  if (!postDataById)
+    return <p className="text-center text-gray-500 my-8">No post found.</p>;
 
   const matchingCategory = Object.values(categories).find(
-    (category) => category.name.toLowerCase().trim() === postDataById.title.toLowerCase().trim()
+    (category) =>
+      category.name.toLowerCase().trim() ===
+      postDataById.title.toLowerCase().trim()
   );
-  console.log('Post Title:', postDataById.title);
-console.log('Category Names:', Object.values(categories).map((cat) => cat.name));
-
+  console.log("Post Title:", postDataById.title);
+  console.log(
+    "Category Names:",
+    Object.values(categories).map((cat) => cat.name)
+  );
 
   return (
     <>
       <Navbar />
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         {matchingCategory && (
-        
           <div className="mb-8 rounded-lg overflow-hidden shadow-lg">
             <img
               src={matchingCategory.imageUrl}
@@ -68,9 +85,7 @@ console.log('Category Names:', Object.values(categories).map((cat) => cat.name))
           </div>
         )}
 
-        <h1 className="text-5xl font-bold mb-6 text-gray-800 leading-tight uppercase "  
-
-        >
+        <h1 className="text-5xl font-bold mb-6 text-gray-800 leading-tight uppercase ">
           {postDataById.title.toUpperCase()}
         </h1>
 
