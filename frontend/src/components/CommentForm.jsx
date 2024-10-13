@@ -38,7 +38,7 @@ const CommentForm = ({
         {commentError && (
           <p className="text-red-500">Error: {commentError.message}</p>
         )}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <input
             type="text"
             name="name"
@@ -59,7 +59,7 @@ const CommentForm = ({
             className="w-full p-2 border rounded"
             required
           />
-        </div>
+        </div> */}
         <div className="mb-4">
           <textarea
             name="body"
