@@ -1,13 +1,12 @@
-import axios from 'axios';
-import { getAuthToken } from './auth';
+import axios from "axios";
+import { getAuthToken } from "./auth";
 
-
-const BaseUrl = 'https://blog-springboot-d0e09379772b.herokuapp.com';
+const BaseUrl = "https://blog-backend-springboot-production.up.railway.app";
 
 export const getAxiosInstance = async (
   isAuth = false,
   customHeaders = {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   }
 ) => {
   let headers = { ...customHeaders };
